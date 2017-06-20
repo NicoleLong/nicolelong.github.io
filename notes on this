@@ -1,0 +1,53 @@
+//KEYWORD THIS//
+
+//this is a referent refering to an object, or the subject of the executing code
+
+//example 1:
+
+    var person = {
+    firstName: "Penelope",
+    lastName: "Barrymore",
+    fullName: function () {
+        // Notice we use "this" just as we used "he" in the example sentence earlier?:
+        console.log(this.firstName + " " + this.lastName);
+    // We could have also written this:
+        console.log(person.firstName + " " + person.lastName);
+    }
+}
+
+/* this makes our code less ambiguous. this refers to an object that the function
+ is bound to. this also contains the value of the object. this can be used to refer back to the object in context. 
+ */
+ 
+ //All functions have properties, and when a function executes, it gets the this property, a VARIABLES WITH THE VALUE OF THE OBJECT THAT INVOKES THE FUNCTION WHERE THIS IS USED.  
+ //The this reference always refers and holds the value of a singular object
+ //It is usually used inside a function or a method
+ //It can also be used outside a function in the global scope. 
+ //In strict mode, this holds the value of undefined in global functions, and in anonymous functions that are not bound to any object. 
+ 
+ //we don't always know the name of the invoking object and sometimes there is no name to use to refer to the invoking object. Thus, this is a shortcut reference for the antecedent invoking and possibly nameless object.
+ 
+// Example again:
+
+var person = {
+    firstName   :"Penelope",
+    lastName    :"Barrymore",
+    // Since the "this" keyword is used inside the showFullName method below, and the showFullName method is defined on the person object,
+    // "this" will have the value of the person object because the person object will invoke showFullName ()
+    showFullName:function () {
+    console.log (this.firstName + " " + this.lastName);
+    }
+
+    }
+    person.showFullName (); // Penelope Barrymore
+    
+    //this is not assigned a value until an object invokes the function where this is defined 
+  //it is not until an object INVOKES the function that this is actually assigned a value
+  //the value it is assigned is based exclusively on the object that invokes the this function. more on this later
+  
+  //this in the global scope//
+  /* in the global scope, when the code is executing in the browser, all global variables and functions are defined on the window object. So when we use this in a global function, it refers to and has the value of the global window object, which is the main container of the entire js application. */
+  
+  //when the context changes—when we execute a method on some other object than where the object was originally defined, the this keyword no longer refers to the original object where “this” was originally defined, but it now refers to the object that invokes the method where this was defined.
+  
+  //It is important to take note that closures cannot access the outer function’s this variable by using the this keyword because the this variable is accessible only by the function itself, not by inner functions. 

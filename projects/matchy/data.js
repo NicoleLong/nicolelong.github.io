@@ -35,7 +35,7 @@ console.log(noises);
 // Step 3 - Combining Step 1 and 2 ///////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 animal['noises'] = noises;
-animal.noises['Meow'];
+animal.noises.push('Meow');
 console.log (animal);
 
 /* *******************************************************************
@@ -79,16 +79,19 @@ console.log(animals.length);
 //////////////////////////////////////////////////////////////////////
 // Step 7 - Making Friends ///////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-var friends = [];//This is an array. This will allow me to add friends.
-function getRandom(){
- return animals[Math.floor(animals.length * Math.random())];
-}
-friends.push(getRandom());
+var friends = [];//I chose array because I only need a list of names, not keys paired with values.
+var getRandom = function (min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+friends.push(animals[getRandom(0, 3)].name);
+
 console.log(friends);
 
 frog.friends = friends;
-console.log(friends);
 console.log(frog);
+
 /** 
  * Nice work! You're done Part 1. Pat yourself on the back and 
  * move onto Part 2 in the file called "functions.js"
