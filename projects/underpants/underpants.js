@@ -116,14 +116,20 @@ _.last = function(array, n){
 *      -> should log "a" "b" "c" to the console
 */
 _.each = function (collection, action){
-    if(Array.isArray(collection)){
-        for (var i = 0; i< collection.length; i++){
-            action()
-        }
+    // if collection is array call function to loop through the array and return the element, index and array
+        if(Array.isArray(collection)){
+            for (var i = 0; i < collection.length; i++){
+                action(collection[i], i, collection);//giving the action as much information as you can, and this is standard format.
+            }
         
-    }
-}
-
+        } else {
+        //if collection is an object, call function using for in loop for iterate through each property and return the property's value, key and the object
+            for (var key in collection){
+                action(collection[key], key, collection);
+            } 
+        }
+    };
+    
 /** _.indexOf()
 * Arguments:
 *   1) An array
@@ -139,6 +145,16 @@ _.each = function (collection, action){
 *   _.indexOf(["a","b","c"], "c") -> 2
 *   _.indexOf(["a","b","c"], "d") -> -1
 */
+
+_.indexOf = function(array, value){
+ // create a for loop, return index of array where value first occurs
+ //otherwise return -1 if value isn't in the array
+     for (var i = 0; i < array.length; i++){
+         if (value === array[i]) {
+             return i;
+         } 
+    } return -1;
+};
 
 
 /** _.filter()
@@ -158,10 +174,10 @@ _.each = function (collection, action){
 */
 _.filter = function (collection, test){
     //create an output array//
-    //loop using each,design a function passed to each://
+    //loop using each,design a function passed to each//
     //> the function must run the test, inspect the result,
     //> of the test, determine if the value has passed the test//
-    // if value passed test, push to output array//
+    // if value passed test, push to output array to filtered//
     //return the array
     const filtered = [];
     _.each(collection, function(value, pos, collection) {
@@ -183,7 +199,18 @@ _.filter = function (collection, test){
 * Examples:
 *   _.reject([1,2,3,4,5], function(e){return e%2 === 0}) -> [1,3,5]
 */
-
+_.reject = function (collection, test){
+    //create an output array
+    //uses _.filter to loop through the collection, which uses _.each, and has already designed a function to pass to each//
+    //the function must run the test and inspect the the result of the test, determine if the value has not passed
+    // if value has not passed the test, push output array to rejects
+        const rejects = [];
+        _.filter(collection, function(value, pos, collection) {
+            //execute the test, based on the result, push passed values to rejects
+            if(!test(value, pos, collection)) rejects.push(value);
+        });
+        return rejects;
+    };
 
 /** _.partition()
 * Arguments:
@@ -203,6 +230,34 @@ _.filter = function (collection, test){
 *   }); -> [[2,4],[1,3,5]]
 }
 */
+_.partition = function(array, test){
+    //create an output array to hold subarrays of filtered(returned truthy on _.each) and rejects (returned falsey on _.filter)//
+    //call on filter(_.each()) to test for truthy values in array, then push truthy values into filtered array,
+    //call on rejects(_.filter()) to test for falsey values in array, then push falsey values into rejects array
+    //return partition array
+    
+    const filtered = [];
+    const rejects = [];
+    const partition = [filtered, rejects];
+    
+    _.each(array, function(value, pos, collection) {
+        //execute the test, based on the result, push passed values  
+        if(test(value, pos, collection)){
+          filtered.push(value);  
+        }
+    });
+    
+    _.filter(array, function(value, pos, collection) {
+            //execute the test, based on the result, push passed values to rejects
+            if(!test(value, pos, collection)){
+               rejects.push(value);  
+            } 
+    });
+    
+    return partition;     
+    };
+    
+    
 
 
 /** _.unique()
@@ -214,14 +269,25 @@ _.filter = function (collection, test){
 * Examples:
 *   _.unique([1,2,2,4,5,6,5,2]) -> [1,2,4,5,6]
 */
-
+// _.unique = function(array){
+//create a new empty array
+//use each to loop through the array and a function to return the value, position and collection, which is an array
+//create an if statement which checks if the value is euqal to the position, and if that is true, push the value into the new array
+_.unique = function(array){
+  const uniq = [];
+  _.each(array, function(value, pos, collection){
+    if(_.indexOf(array, value) === pos){
+      uniq.push(value)}
+  }); return uniq;
+};            
 
 /** _.map()
 * Arguments:
 *   1) A collection
 *   2) a function
 * Objectives:
-*   1) call <function> for each element in <collection> passing the arguments:
+*   1) call <function> for each element in <collection> passing 
+*   the arguments:
 *        if <collection> is an array:
 *            the element, it's index, <collection>
 *        if <collection> is an object:
@@ -231,7 +297,17 @@ _.filter = function (collection, test){
 * Examples:
 *   _.map([1,2,3,4], function(e){return e * 2}) -> [2,4,6,8]
 */
-
+    //create a new array for return values
+    //use _.each to determine if collection is an array or an object and loop over collection
+    //push the return values after they have been tested into a new array
+    //return the array
+_.map = function(collection, test){
+    const mapped = [];
+    _.each(collection, function(value, pos, collection){
+        mapped.push(test(value, pos, collection)) 
+    });
+    return mapped;
+};
 
 /** _.pluck()
 * Arguments:
@@ -243,7 +319,13 @@ _.filter = function (collection, test){
 * Examples:
 *   _.pluck([{a: "one"}, {a: "two"}], "a") -> ["one", "two"]
 */
+// use map which uses each to loop over the array of objects, map returns the value of the property at each element in the array and builds a new array from the returned values
 
+_.pluck = function(array, property){
+    return _.map(array, function(element) {
+        return element[property];
+    });
+};
 
 /** _.contains()
 * Arguments:
@@ -259,8 +341,19 @@ _.filter = function (collection, test){
 * Examples:
 *   _.contains([1,"two", 3.14], "two") -> true
 */
-
-
+//set variable to false in case no value is given
+//call _.each to iterate over the array
+//if the value in the array is equal to the value argument, change answer variable to true
+// we are only returning true if the values match, otherwise we just return false. 
+// the second expression is just a placeholder since our default return is false.
+_.contains = function(arr, val) {
+    var answer = false;
+    _.each(arr, function(value) {
+        value === val ? answer = true : false; 
+    });
+    return answer;
+};
+ 
 /** _.every()
 * Arguments:
 *   1) A collection
@@ -281,6 +374,26 @@ _.filter = function (collection, test){
 *   _.every([2,4,6], function(e){return e % 2 === 0}) -> true
 *   _.every([1,2,3], function(e){return e % 2 === 0}) -> false
 */
+//use _.each to call function on each collection
+//if return evaluates to true, return true
+//if one is false, return false
+//if no function, return true if all the elements are truthy, otherwise false
+_.every = function(collection, test){
+    var answer = true;
+   if (typeof (test) === 'function'){
+        _.each(collection, function(element, pos, collection){
+           if(test(element) === false) {
+               answer = false;
+           }
+        });
+    } else {
+        _.each(collection, function(element, pos, collection){
+            if(element){
+               answer = true;
+            } else answer = false;
+        });
+   }    
+};
 
 
 /** _.some()
@@ -323,7 +436,10 @@ _.filter = function (collection, test){
 * Examples:
 *   _.reduce([1,2,3], function(previousSum, currentValue, currentIndex){ return previousSum + currentValue }, 0) -> 6
 */
-
+//
+// _.reduce = function(array, combine, start){
+    
+// }
 
 /** _.extend()
 * Arguments:
