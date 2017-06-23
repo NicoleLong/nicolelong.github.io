@@ -257,8 +257,6 @@ _.partition = function(array, test){
     return partition;     
     };
     
-    
-
 
 /** _.unique()
 * Arguments:
@@ -346,10 +344,10 @@ _.pluck = function(array, property){
 //if the value in the array is equal to the value argument, change answer variable to true
 // we are only returning true if the values match, otherwise we just return false. 
 // the second expression is just a placeholder since our default return is false.
-_.contains = function(arr, val) {
+_.contains = function(array, value) {
     var answer = false;
-    _.each(arr, function(value) {
-        value === val ? answer = true : false; 
+    _.each(array, function(element) {
+        element === value ? answer = true : false; 
     });
     return answer;
 };
@@ -377,22 +375,22 @@ _.contains = function(arr, val) {
 //use _.each to call function on each collection
 //if return evaluates to true, return true
 //if one is false, return false
-//if no function, return true if all the elements are truthy, otherwise false
+//if function is not a function, return true if all the elements are truthy, otherwise false
 _.every = function(collection, test){
-    var answer = true;
-   if (typeof (test) === 'function'){
-        _.each(collection, function(element, pos, collection){
-           if(test(element) === false) {
-               answer = false;
-           }
+    var result = true;//the ideal outcome is that everything returns true
+    if (typeof (test) === 'function'){//if you have a function
+        _.each(collection, function(element, pos, collection){//run a loop
+           if(!test(element, pos, collection)) { // you have to provide the function with everything you passed into it originally or the test will fail
+               result = false;
+            }
         });
-    } else {
+    }else{//if you dont have a function
         _.each(collection, function(element, pos, collection){
-            if(element){
-               answer = true;
-            } else answer = false;
-        });
-   }    
+            if(!element){
+               result = false;//you only want to change this set to false one time, not going back and forth between t and f
+            }      
+        });     
+    } return result;
 };
 
 
@@ -416,7 +414,22 @@ _.every = function(collection, test){
 *   _.some([1,3,5], function(e){return e % 2 === 0}) -> false
 *   _.some([1,2,3], function(e){return e % 2 === 0}) -> true
 */
-
+_.some = function(collection, test){
+    var result = false;//the ideal outcome is that everything returns false
+    if (typeof (test) === 'function'){//if you have a function
+        _.each(collection, function(element, pos, collection){//run a loop
+           if(test(element, pos, collection)) { // you have to provide the function with everything you passed into it originally or the test will fail
+               result = true;
+            }
+        });
+    } else {//if you dont have a function
+        _.each(collection, function(element, pos, collection){
+            if(element){
+               result = true;//you only want to change this set to true one time, not going back and forth between t and f
+            }      
+        });     
+    } return result;
+};
 
 /** _.reduce()
 * Arguments:
@@ -436,10 +449,24 @@ _.every = function(collection, test){
 * Examples:
 *   _.reduce([1,2,3], function(previousSum, currentValue, currentIndex){ return previousSum + currentValue }, 0) -> 6
 */
-//
-// _.reduce = function(array, combine, start){
-    
-// }
+//takes all of the elements of an array and combines them into one value based on the function
+//that is passed in
+
+_.reduce = function(array, test, seed){
+    if (seed === undefined) {
+            seed = array[0];//no seed is given, using the first element as seed
+            for(var i = 1; i < array.length; i++){ //need to use a for loop instead of an each loop. the for loop will continue looping from the first element. does not need to establish seed the first time
+                seed = test(seed, array[i], i, array);
+            } 
+    } else { 
+        _.each(array, function(e, i, a){
+            seed = test(seed, e, i, a);
+        });
+        
+    }  
+    return seed;
+};
+
 
 /** _.extend()
 * Arguments:
@@ -456,6 +483,13 @@ _.every = function(collection, test){
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
 
-
+_.extend = function(obj1, newObj){
+    _.each(arguments, function(newObj) {
+        _.each(newObj, function(value, key) {
+            obj1[key] = value;
+        });
+    });
+    return obj1;
+};
 // This is the proper way to end a javascript library
 }());
