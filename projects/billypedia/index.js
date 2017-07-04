@@ -6,7 +6,6 @@ $(document).ready(function() {
         
         console.log(data);
         
-        // EXAMPLE: Looping over top rated recordings; replace with your code //
     //Top Rated 
     //TODO 4 : Populate the Top Rated List
     //TODO 8 : Dynamically Swap Recording Images
@@ -59,7 +58,7 @@ $(document).ready(function() {
     //calling on id image-billy (which already existed, looked up name in console). Giving it an event handler of click. Giving image-billy a source attribute. passing array of billyImages into index of function, starting at billyPic. index returns the index number. if the index number is less than the length of the billyImages array, billyPic is assigned to the image at the next index. else its reassigned back to the first index. Give image-billy source a value of billypic. 
     
    //TODO 9 Build a Table using jQuery 
-    $('<section>').attr('id','section-Billys-rider').append($('<h3>').text('Billys Rider').addClass('heading')).appendTo('.content');
+    $('<section>').attr('id','section-Billys-rider').append($('<h3>').text('Billy\'s Rider').addClass('heading')).appendTo('.content');
 
     var rider = data.rider;
     var createTable = function(rider){

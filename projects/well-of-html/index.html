@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/custom.css" type="text/css" />
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="bower_components/notes/notes.js"></script>
+    <title>A Well of HTML</title>
+    <style type="text/css">
+        
+    </style>
+</head>
+
+<body>
+    <div id="container" class="container">
+        <!-- ALL YOUR MARKUP GOES BELOW HERE -->
+        <h1>Well of HTML</h1>
+        <a href = "https://en.wikipedia.org/wiki/Cosmos:_A_Spacetime_Odyssey">Watch this show if you want to know about everything.</a>
+        <br>
+        <h6>Black Currant</h6>
+        <img src ="img/black-currant.jpg"/>
+        <br>
+        
+        
+        <div>
+        <p>I'm just going to put some words here for now. I bet you are really <i>enjoying</i> reading this paragraph. Oh yes. This is absolutely <em>riveting</em>.</p>
+        
+        <p>And here again is another very <strong>exciting</strong> paragraph. This paragraph resembles the previous paragraph in both content and style. Let me be clear, this is really <b>captivating</b> stuff.</p>
+        </div>
+        
+        <ul>
+            <li>Saudade</li>
+            <li>Sehnsucht</li>
+            <li>Dor</li>
+        </ul>
+        
+        <d1> <h2>Definitions from Wikipedia</h2>
+            <dt>Saudade:</dt>
+            <dd>(in Portuguese folk culture) is a deep emotional state of nostalgic or profound melancholic longing for an absent something or someone that one loves. Moreover, it often carries a repressed knowledge that the object of longing might never return.</dd>
+            <dt>Sehnsucht:</dt>
+            <dd>a German noun translated as "longing", "pining", "yearning", or "craving", or in a wider sense a type of "intensely missing". However, Sehnsucht is difficult to translate adequately and describes a deep emotional state. Its meaning is somewhat similar to the Portuguese word saudade, or the Romanian word dor. </dd>
+            <dt>Dor:</dt>
+            <dd>The Romanian word for a strong feeling of nostalgia, homesickness or missing someone. </dd>
+        </d1>
+        <div>
+            <h5>And now for completely unrelated instructions on how to plan a cookout!</h5>
+             <ol> <h3>How to plan a cookout:</h3>
+                <li>Make some friends.</li>
+                <li>Invite said friends over to your home.</li>
+                <li>Tell them to bring all the food, beverages, and plates.</li>
+                <li>Hire a kid to mow the lawn.</li>
+                <li>Ask a friend to bring a grill.</li>
+                <li>Ask a friend to bring speakers.</li>
+                <li>Pick a preset playlist from Spotify.</li>
+                <li>Instruct everyone to bring their own chair.</li>
+                <li>Encourage someone else to take the lead on cooking the food.</li>
+                <li>Hire the same kid to clean up after the party is over.</li>
+            </ol>
+        </div>
+        <div>
+            <h4><b>Please Enter Your Info here:</b></h4>
+            <form class="example-form">
+                <div>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" />
+                </div>
+                <div>
+                    <label for="mail">E-mail:</label>
+                    <input type="email" id="mail" />
+                </div>
+                <div>
+                    <label for="msg">Message:</label>
+                    <textarea id="msg"></textarea>
+                </div>
+            
+                <div class="button">
+                    <button type="submit">Send your message</button>
+                </div>
+            </form>
+        </div>
+        
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>TV Show</th>
+                        <th>Genre</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    <tr>
+                        <td>Game of Thrones</td>
+                        <td>Fantasy</td>
+                    </tr>
+                    <tr>
+                        <td>Archer</td>
+                        <td>Comedy</td>
+                    </tr>
+                    <tr>
+                        <td>Cosmos: A Spacetime Odyssey</td>
+                        <td>Science/Education</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h2>These are great Ted Talks:</h2>
+            <a href = "https://www.youtube.com/watch?v=iCvmsMzlF7o">The Power of Vulnerability_Brene Brown</a><br>
+            <a href = "https://www.youtube.com/watch?v=RiM5a-vaNkg">How the worst moments in our lives make us who we are_Andrew Solomon</a>
+        </div>
+        
+        
+        <div class="flex-row">
+            <div>One</div>
+            <div>Two</div>
+            <div>Three</div>
+            <div>Four</div>
+            <div>Five</div>
+        </div>
+        
+        <div class="example-grid">
+          <div class="row">
+              <div class="col-md-2"><img src="img/cherries.jpg" class="row-img"></img>
+              </div>
+              <div class="col-md-10">Cherries are tasty things that grow on trees! You can eat them and feel good about yourself!</div>
+          </div>
+          <div class="row">
+              <div class="col-md-2"><img src="img/black-currant.jpg" class="row-img"></img>
+              </div>
+              <div class="col-md-10">Black Currents are tasty things that grow on bushes! You can eat them and feel good about yourself!</div>
+          </div>
+          <div class="row">
+              <div class="col-md-2"><img src="img/apple-in-grass.jpg" class="row-img"></img>
+              </div>
+              <div class="col-md-10">Apples are tasty things that grow on trees! You can eat them and feel good about yourself! They make great pies!</div>
+          </div>
+         </div>
+        <!-- ALL YOUR MARKUP GOES ABOVE HERE -->
+    </div>
+    <script>
+        $(function () {
+            window.opspark.notes.show();
+        });
+    </script>
+</body>
+
+</html>
